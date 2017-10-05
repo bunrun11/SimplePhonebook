@@ -8,7 +8,7 @@ void AddEntry(Phonebook&);
 void Search(Phonebook&);
 void DeleteEntry(Phonebook&);
 void PrintList(Phonebook&);
-bool ValidateName(string);
+bool ValidateName(string, string);
 bool ValidateNumber(string);
 
 int main() {
@@ -18,13 +18,13 @@ int main() {
 
 	cout<<"***MY PHONEBOOK APPLICATION***"<<endl;
 	cout<<"Please choose an operation:"<<endl;
-	string input;
+	char input;
 	do
 	{
 		cout<<"A(Add)|S(Search)|D(Delete)|L(List)|Q(Quit): ";
-		getline(cin, input);
+		cin>>input;
 
-		switch(input[0]){
+		switch(input){
 		case 'A':
 			AddEntry(phonebook);
 			break;
@@ -44,29 +44,25 @@ int main() {
 
 		cout<<endl;
 	}
-	while(input[0] != 'Q');
+	while(input != 'Q');
+
+	//cout<<phonebook<<endl;
 
 	return 0;
 }
 
 void AddEntry(Phonebook &phonebook){
-	string name = "";
+	string firstname, lastname;
 	cout<<"Enter name: ";
-	getline(cin, name);
-	if(name[name.length()-1] == '\r' || name[name.length()-1] == '\n'){
-		name.erase(name.length()-1); // remove \r or \n
-	}
+	cin>>firstname>>lastname;
 
-	if(ValidateName(name)){
-		string number;
+	if(ValidateName(firstname, lastname)){
+		string phonenumber;
 		cout<<"Enter phone: ";
-		getline(cin, number);
-		if(number[number.length()-1] == '\r' || number[number.length()-1] == '\n'){
-				number.erase(number.length()-1); // remove \r or \n
-			}
+		cin>>phonenumber;
 
-		if(ValidateNumber(number)){
-			phonebook.Add(name + " " + number);
+		if(ValidateNumber(phonenumber)){
+			phonebook.Add(firstname, lastname, phonenumber);
 			return;
 		}
 	}
@@ -74,23 +70,17 @@ void AddEntry(Phonebook &phonebook){
 }
 
 void Search(Phonebook &phonebook){
-	string name = "";
+	string firstname, lastname;
 	cout<<"Enter name: ";
-	getline(cin, name, '\n');
-	if(name[name.length()-1] == '\r' || name[name.length()-1] == '\n'){
-			name.erase(name.length()-1); // remove \r or \n
-		}
-	cout<<"Phone Number: "<<phonebook.Find(name)<<endl;
+	cin>>firstname>>lastname;
+	cout<<"Phone Number: "<<phonebook.Find(firstname, lastname)<<endl;
 }
 
 void DeleteEntry(Phonebook &phonebook){
-	string name = "";
+	string firstname, lastname;
 	cout<<"Enter name: ";
-	getline(cin, name, '\n');
-	if(name[name.length()-1] == '\r' || name[name.length()-1] == '\n'){
-			name.erase(name.length()-1); // remove \r or \n
-		}
-	phonebook.Delete(name);
+	cin>>firstname>>lastname;
+	phonebook.Delete(firstname, lastname);
 
 }
 
@@ -98,7 +88,7 @@ void PrintList(Phonebook &phonebook){
 	phonebook.Print();
 }
 
-bool ValidateName(string name){
+bool ValidateName(string firstname, string lastname){
 	return true;
 }
 
