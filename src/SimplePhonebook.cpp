@@ -14,8 +14,10 @@ bool ValidateNumber(string);
 int main() {
 
 	Phonebook phonebook;
-	phonebook.ReadFile("fakephonebook.txt");
+	phonebook.ReadFile("phonebook.txt");
 
+	cout<<"***MY PHONEBOOK APPLICATION***"<<endl;
+	cout<<"Please choose an operation:"<<endl;
 	string input;
 	do
 	{
@@ -49,15 +51,19 @@ int main() {
 
 void AddEntry(Phonebook &phonebook){
 	string name = "";
-	cout<<"Name: ";
+	cout<<"Enter name: ";
 	getline(cin, name);
-	name.erase(name.length()-1); // remove \r
+	if(name[name.length()-1] == '\r' || name[name.length()-1] == '\n'){
+		name.erase(name.length()-1); // remove \r or \n
+	}
 
 	if(ValidateName(name)){
 		string number;
-		cout<<"Number: ";
+		cout<<"Enter phone: ";
 		getline(cin, number);
-		number.erase(number.length()-1); // remove \r
+		if(number[number.length()-1] == '\r' || number[number.length()-1] == '\n'){
+				number.erase(number.length()-1); // remove \r or \n
+			}
 
 		if(ValidateNumber(number)){
 			phonebook.Add(name + " " + number);
@@ -69,15 +75,21 @@ void AddEntry(Phonebook &phonebook){
 
 void Search(Phonebook &phonebook){
 	string name = "";
+	cout<<"Enter name: ";
 	getline(cin, name, '\n');
-	name.erase(name.length()-1); //remove \r
-	cout<<phonebook.Find(name)<<endl;
+	if(name[name.length()-1] == '\r' || name[name.length()-1] == '\n'){
+			name.erase(name.length()-1); // remove \r or \n
+		}
+	cout<<"Phone Number: "<<phonebook.Find(name)<<endl;
 }
 
 void DeleteEntry(Phonebook &phonebook){
 	string name = "";
+	cout<<"Enter name: ";
 	getline(cin, name, '\n');
-	name.erase(name.length()-1); //remove \r
+	if(name[name.length()-1] == '\r' || name[name.length()-1] == '\n'){
+			name.erase(name.length()-1); // remove \r or \n
+		}
 	phonebook.Delete(name);
 
 }

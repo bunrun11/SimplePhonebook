@@ -57,7 +57,7 @@ Phonebook::Phonebook(string _arr[], int _size){
 
 Phonebook::~Phonebook()
 {
-	cout<<"Delete Phonebook"<<endl;
+	//cout<<"Delete Phonebook"<<endl;
 	delete[] addresses;
 }
 
